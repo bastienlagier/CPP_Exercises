@@ -1,6 +1,8 @@
 #include <iostream>
 
-int main() {
+int main(int argc, char **argv) {
+    int var = 0;
     std::cout << "Hello world!" << std::endl;
-    return 0;
+    std::cin >> var;;
+    return var;
 }
