@@ -33,3 +33,9 @@ class Kid {
         }
     }
 };
+
+std::ostream& operator<< (std::ostream &out, Kid const& kid) {
+    out << kid.get_name() << " has " << kid.get_money(); 
+    out << " euros.";
+    return out;
+}

@@ -3,6 +3,7 @@
 #include <list>
 #include <Plush.hpp>
 #include <optional>
+#define MAX(a, b) ((a > b) ?  a : b)
 
 class PlushStore {
     public:
@@ -15,16 +16,23 @@ class PlushStore {
         std::string get_name() const {
             return _name;
         }
+        // valeur finale <- valeur investie + max(exp, exp * valeur investie / 100)
         unsigned int make_plush(unsigned int cost) {
-            if (_money >= cost) {
-                auto plush = Plush { cost };
+            auto value = cost + MAX(_experience, _experience * cost / 100);
+            if (_money >= cost || lastPlush) {
+                auto plush = Plush { value };
                 _stock.push_back(plush);
                 _money -= cost;
                 _size++;
                 _experience++;
-                return cost;
+                if (!lastPlush) {
+                    lastPlush = _money < cost;
+                }
+                else {
+                    lastPlush = false;
+                }
             }
-            return 0;
+            return value;
         }
         unsigned int get_wealth_amount() const {
             return _money;
@@ -44,9 +52,8 @@ class PlushStore {
                 auto plush = optional_plush.value();
                 if (money >= plush.get_cost()) {
                     _money += plush.get_cost();
-                    // _stock.remove(plush);
                     _size--;
-                    return optional_plush;
+                    return std::optional<Plush>{plush};
                 }
             }
             return std::nullopt;
@@ -56,6 +63,7 @@ class PlushStore {
         unsigned int _money = 0;
         unsigned int _size = 0;
         unsigned int _experience = 0;
+        bool lastPlush = false;
         std::list<Plush> _stock = { };
         std::optional<Plush> minPlush() {
             if (_size == 0) {
@@ -67,6 +75,7 @@ class PlushStore {
                     min = it;
                 }
             }
+            _stock.erase(min);
             return std::optional<Plush>{*min};
         }
 };
