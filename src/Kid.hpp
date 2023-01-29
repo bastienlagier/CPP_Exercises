@@ -24,7 +24,7 @@ class Kid {
         return _name;
     }
 
-    void buy_plush(PlushStore plush_store) {
+    void buy_plush(PlushStore& plush_store) {
         auto optionalPlush = plush_store.buy(_money);
         if (optionalPlush.has_value()) {
             auto plush = optionalPlush.value();
