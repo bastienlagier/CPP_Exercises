@@ -18,3 +18,11 @@ Pokemon& Pokemon::operator=(const Pokemon& other) {
 }
 
 unsigned int Pokemon::idPokemon = 0;
+
+const Trainer* Pokemon::trainer() const {
+    return _trainer;
+}
+
+void Pokemon::set_trainer(const Trainer& trainer) {
+    _trainer = &trainer;
+}

@@ -1,10 +1,16 @@
 #pragma once
 
+#include "Pokemon.h"
+#include <memory>
+
 // A ball where a Pokemon sleeps.
-class Pokeball 
-{
+class Pokeball {
     public:
-    Pokeball() 
-    {}
+    void store(PokemonPtr pokemon);
     bool empty() const;
+    const Pokemon& pokemon() const;
+    PokemonPtr steal();
+
+    private:
+    PokemonPtr _pokemon = nullptr;
 };
