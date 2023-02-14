@@ -31,9 +31,13 @@ class Trap : public Card {
         , _traptype { traptype }
     {
         Card::set_name(name);
+        Card::set_symbol(u8"罠");
     }
     TrapType get_trap_type() const {
         return _traptype;
+    }
+    string get_symbol() const {
+        return u8"罠";
     }
 
     private:

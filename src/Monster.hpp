@@ -47,6 +47,7 @@ class Monster : public Card {
         , _def { def }
     {
         Card::set_name(name);
+        Card::set_symbol(to_symbol(attribute));
     }
 
     
@@ -70,6 +71,10 @@ class Monster : public Card {
     }
     string get_description() const {
         return "[" + _category + "]\n" + Card::get_description() + "\nATK/" + to_string(_atk) + " DEF/" + to_string(_def);
+    }
+
+    string get_symbol() const {
+        return Card::_symbol;
     }
 
     private:

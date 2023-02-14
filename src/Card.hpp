@@ -40,11 +40,17 @@ class Card {
     string get_name() const {
         return _name;
     }
-    void set_name(string name) {
+    void set_name(const string& name) {
         _name = name;
     }
-    void set_description(string description) {
+    void set_description(const string& description) {
         _description = description;
+    }
+    void set_symbol(const string& symbol) {
+        _symbol = symbol;
+    }
+    string get_symbol() const {
+        return _symbol;
     }
 
     private:
@@ -52,4 +58,7 @@ class Card {
     string _name = "";
     string _description = "";
     const CardType _type;
+
+    protected:
+    string _symbol = "";
 };
