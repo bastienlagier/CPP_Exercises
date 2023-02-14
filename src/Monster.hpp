@@ -68,6 +68,9 @@ class Monster : public Card {
     string get_name() const {
         return _name;
     }
+    string get_description() const {
+        return "[" + _category + "]\n" + Card::get_description() + "\nATK/" + to_string(_atk) + " DEF/" + to_string(_def);
+    }
 
     private:
     const string _id;
