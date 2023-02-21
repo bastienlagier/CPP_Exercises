@@ -13,6 +13,8 @@ class IntLeaf : public Leaf {
     int data() const;
     NodeKind kind() const;
     virtual std::string print() const override;
+    static NodePtr make_ptr(int value);
+    int child_count();
     private:
     const int _value;      
     const NodeKind _kind;
