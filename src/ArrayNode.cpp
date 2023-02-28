@@ -1,5 +1,6 @@
 #include "ArrayNode.hpp"
 #include <utility>
+#include <algorithm>
 
 std::string ArrayNode::print() const {
     std::string result = "[";
@@ -25,6 +26,11 @@ void ArrayNode::push_back(NodePtr nodeptr) {
 }
 
 unsigned int ArrayNode::height() {
-    unsigned int size = _array.size();
-    return size == 0 ? 0 : size-1;
+    // unsigned int size = _array.size();
+    // return size == 0 ? 0 : size-1;
+    unsigned int height = 1;
+    for (const auto &node : _array) {
+        height = std::max(node->height(), height);
+    }
+    return height;
 }
