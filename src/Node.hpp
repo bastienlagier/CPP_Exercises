@@ -16,4 +16,6 @@ class Node : public InstanceCounter {
     virtual ~Node() = default;
     virtual std::string print() const = 0;
     virtual int child_count() = 0;
+    virtual unsigned int height() { return 0u; };
+    virtual unsigned int node_count();
 };

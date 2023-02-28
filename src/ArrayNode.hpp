@@ -15,6 +15,8 @@ class ArrayNode : public Node {
     static std::unique_ptr<ArrayNode> make_ptr();
     void push_back(NodePtr nodeptr);
     int child_count() override;
+    unsigned int node_count() override { return _array.size()+1; };
+    unsigned int height() override;
     private:
     std::vector<NodePtr> _array;
     const NodeKind _kind;

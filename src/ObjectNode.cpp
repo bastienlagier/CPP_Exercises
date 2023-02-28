@@ -28,5 +28,14 @@ int ObjectNode::child_count() {
 }
 
 void ObjectNode::insert(std::string str, NodePtr nodeptr) {
-    _dictionnary.insert_or_assign(str, std::move(nodeptr));
+    if (nodeptr != nullptr) {
+        unsigned int nodecount = nodeptr->node_count();
+        _dictionnary.insert_or_assign(str, std::move(nodeptr));
+        _node_count += nodecount;
+    }
+}
+
+unsigned int ObjectNode::height() {
+    unsigned int size = _dictionnary.size();
+    return size == 0 ? 0 : size-1;
 }

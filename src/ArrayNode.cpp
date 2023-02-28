@@ -27,3 +27,8 @@ int ArrayNode::child_count() {
 void ArrayNode::push_back(NodePtr nodeptr) {
     _array.push_back(std::move(nodeptr));
 }
+
+unsigned int ArrayNode::height() {
+    unsigned int size = _array.size();
+    return size == 0 ? 0 : size-1;
+}
