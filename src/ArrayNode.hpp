@@ -12,9 +12,10 @@ class ArrayNode : public Node {
     {}
     NodeKind kind() const;
     virtual std::string print() const override;
-    static NodePtr make_ptr();
+    static std::unique_ptr<ArrayNode> make_ptr();
+    void push_back(NodePtr nodeptr);
     int child_count() override;
     private:
-    std::vector<Node> _array;
+    std::vector<NodePtr> _array;
     const NodeKind _kind;
 };

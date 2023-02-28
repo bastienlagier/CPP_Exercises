@@ -1,7 +1,8 @@
 #pragma once
 #include "Node.hpp"
 #include "NodeKind.hpp"
-
+#include <map>
+#include <string>
 
 class ObjectNode : public Node {
     public:
@@ -11,8 +12,10 @@ class ObjectNode : public Node {
     {}
     NodeKind kind() const;
     virtual std::string print() const override;
-    static NodePtr make_ptr();
+    static std::unique_ptr<ObjectNode> make_ptr();
     int child_count();
+    void insert(std::string str, NodePtr nodeptr);
     private:
     const NodeKind _kind;
+    std::map<std::string, NodePtr> _dictionnary;
 };

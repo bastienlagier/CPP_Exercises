@@ -4,6 +4,7 @@
 #include <memory>
 
 class Node;
+class ArrayNode;
 
 using NodePtr = std::unique_ptr<Node>;
 
@@ -12,7 +13,7 @@ class Node : public InstanceCounter {
     Node()
     {}
     public:
-    virtual ~Node() {}
+    virtual ~Node() = default;
     virtual std::string print() const = 0;
     virtual int child_count() = 0;
 };

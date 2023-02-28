@@ -1,17 +1,29 @@
 #include "ArrayNode.hpp"
+#include <utility>
 
 NodeKind ArrayNode::kind() const {
     return _kind;
 }
 
 std::string ArrayNode::print() const {
-    return "[]";
+    std::string result = "[";
+    for (unsigned i = 0; i < _array.size(); ++i) {
+        if (i > 0)
+            result += ",";
+        result += _array[i]->print();
+    }
+    result += ']';
+    return result;
 }
 
-NodePtr ArrayNode::make_ptr() {
+std::unique_ptr<ArrayNode> ArrayNode::make_ptr() {
     return std::make_unique<ArrayNode>(ArrayNode { });
 }
 
 int ArrayNode::child_count() {
-    return 0;
+    return _array.size();
+}
+
+void ArrayNode::push_back(NodePtr nodeptr) {
+    _array.push_back(std::move(nodeptr));
 }
