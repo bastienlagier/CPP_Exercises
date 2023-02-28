@@ -2,6 +2,7 @@
 #include "InstanceCounter.hpp"
 #include <string>
 #include <memory>
+#include "NodeKind.hpp"
 
 class Node;
 class ArrayNode;
@@ -9,8 +10,11 @@ class ArrayNode;
 using NodePtr = std::unique_ptr<Node>;
 
 class Node : public InstanceCounter {
+    private:
+    const NodeKind _kind;
     protected:
-    Node()
+    Node(NodeKind kind)
+        : _kind(kind)
     {}
     public:
     virtual ~Node() = default;
@@ -18,4 +22,5 @@ class Node : public InstanceCounter {
     virtual int child_count() = 0;
     virtual unsigned int height() { return 0u; };
     virtual unsigned int node_count();
+    virtual NodeKind kind() { return _kind; };
 };

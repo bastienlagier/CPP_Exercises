@@ -7,8 +7,7 @@
 class ArrayNode : public Node {
     public:
     ArrayNode() 
-        : Node {}
-        , _kind { NodeKind::ARRAY }
+        : Node { NodeKind::ARRAY }
     {}
     NodeKind kind() const;
     virtual std::string print() const override;
@@ -19,5 +18,4 @@ class ArrayNode : public Node {
     unsigned int height() override;
     private:
     std::vector<NodePtr> _array;
-    const NodeKind _kind;
 };

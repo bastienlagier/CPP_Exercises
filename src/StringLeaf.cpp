@@ -1,10 +1,5 @@
 #include "StringLeaf.hpp"
 
-
-NodeKind StringLeaf::kind() const {
-    return _kind;
-}
-
 std::string StringLeaf::print() const {
     return "\"" +  _value + "\"";
 }

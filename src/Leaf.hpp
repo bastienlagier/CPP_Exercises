@@ -3,7 +3,7 @@
 
 class Leaf : public Node {
     protected:
-    Leaf()
-        : Node {}
+    Leaf(NodeKind kind)
+        : Node(kind)
     {}
 };

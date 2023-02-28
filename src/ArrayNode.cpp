@@ -1,10 +1,6 @@
 #include "ArrayNode.hpp"
 #include <utility>
 
-NodeKind ArrayNode::kind() const {
-    return _kind;
-}
-
 std::string ArrayNode::print() const {
     std::string result = "[";
     for (unsigned i = 0; i < _array.size(); ++i) {
