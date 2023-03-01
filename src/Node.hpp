@@ -6,6 +6,8 @@
 
 class Node;
 class ArrayNode;
+class IntLeaf;
+class StringLeaf;
 
 using NodePtr = std::unique_ptr<Node>;
 
@@ -23,4 +25,6 @@ class Node : public InstanceCounter {
     virtual unsigned int height() { return 0u; };
     virtual unsigned int node_count();
     virtual NodeKind kind() { return _kind; };
+    IntLeaf* as_IntLeaf();
+    StringLeaf* as_StringLeaf(); 
 };

@@ -25,12 +25,21 @@ void ArrayNode::push_back(NodePtr nodeptr) {
     _array.push_back(std::move(nodeptr));
 }
 
+unsigned int ArrayNode::node_count() {
+    unsigned int count = 1;
+    for (const auto &node : _array) {
+        count += node->node_count();
+    }
+    return count;
+}
+
 unsigned int ArrayNode::height() {
-    // unsigned int size = _array.size();
-    // return size == 0 ? 0 : size-1;
-    unsigned int height = 1;
+    if (child_count() == 0u) {
+        return 0u;
+    }
+    unsigned int height = 0;
     for (const auto &node : _array) {
         height = std::max(node->height(), height);
     }
-    return height;
+    return height + 1;
 }

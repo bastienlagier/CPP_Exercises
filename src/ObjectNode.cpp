@@ -32,6 +32,12 @@ void ObjectNode::insert(std::string str, NodePtr nodeptr) {
 }
 
 unsigned int ObjectNode::height() {
-    unsigned int size = _dictionnary.size();
-    return size == 0 ? 0 : size-1;
+    if (child_count() == 0) {
+        return 0u;
+    }
+    unsigned int height = 0;
+    for (auto it = _dictionnary.begin(); it != _dictionnary.end(); ++it) {
+        height = std::max(it->second->height(), height);
+    }
+    return height+1;
 }
