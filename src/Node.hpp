@@ -8,6 +8,8 @@ class Node;
 class ArrayNode;
 class IntLeaf;
 class StringLeaf;
+class ArrayNode;
+class ObjectNode;
 
 using NodePtr = std::unique_ptr<Node>;
 
@@ -27,4 +29,6 @@ class Node : public InstanceCounter {
     virtual NodeKind kind() { return _kind; };
     IntLeaf* as_IntLeaf();
     StringLeaf* as_StringLeaf(); 
+    ArrayNode* as_ArrayNode();
+    ObjectNode* as_ObjectNode();
 };

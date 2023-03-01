@@ -15,6 +15,8 @@ class ObjectNode : public Node {
     void insert(std::string str, NodePtr nodeptr);
     unsigned int node_count() override { return _node_count; };
     unsigned int height() override;
+    bool has_child(const std::string& key);
+    NodePtr at(const std::string& key);
     private:
     std::map<std::string, NodePtr> _dictionnary;
     unsigned int _node_count = 1u;

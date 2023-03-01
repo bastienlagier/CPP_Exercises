@@ -41,3 +41,11 @@ unsigned int ObjectNode::height() {
     }
     return height+1;
 }
+
+bool ObjectNode::has_child(const std::string& key) {
+    return _dictionnary.count(key) != 0;
+}
+
+NodePtr ObjectNode::at(const std::string& key) {
+    return _dictionnary.at(key);
+}
