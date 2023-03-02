@@ -32,6 +32,7 @@ TEST_CASE("Extracting data from pokedex.json, ensuring that it works on const No
         auto pokemon_obj = pokemon_node->as_ObjectNode();
 
         REQUIRE(pokemon_obj->has_child("name"));
+        
         REQUIRE(pokemon_obj->at("name")->kind() == NodeKind::STRING);
         const std::string &name = pokemon_obj->at("name")->as_StringLeaf()->data();
 
