@@ -23,12 +23,18 @@ class Node : public InstanceCounter {
     public:
     virtual ~Node() = default;
     virtual std::string print() const = 0;
-    virtual int child_count() = 0;
+    virtual size_t child_count() const = 0;
     virtual unsigned int height() { return 0u; };
     virtual unsigned int node_count();
-    virtual NodeKind kind() { return _kind; };
+    virtual bool operator==(const Node&) const = 0;
+    virtual NodePtr deep_copy() const = 0;
+    NodeKind kind() const { return _kind; };
     IntLeaf* as_IntLeaf();
     StringLeaf* as_StringLeaf(); 
     ArrayNode* as_ArrayNode();
     ObjectNode* as_ObjectNode();
+    const IntLeaf* as_IntLeaf() const;
+    const StringLeaf* as_StringLeaf() const; 
+    const ArrayNode* as_ArrayNode() const;
+    const ObjectNode* as_ObjectNode() const;
 };

@@ -8,15 +8,17 @@ class ObjectNode : public Node {
     ObjectNode() 
         : Node { NodeKind::OBJECT }
     {}
-    NodeKind kind() const;
     virtual std::string print() const override;
     static std::unique_ptr<ObjectNode> make_ptr();
-    int child_count();
+    size_t child_count() const { return _dictionnary.size(); }
     void insert(std::string str, NodePtr nodeptr);
     unsigned int node_count() override;
     unsigned int height() override;
-    bool has_child(const std::string& key);
+    bool has_child(const std::string& key) const;
     Node* at(const std::string& key);
+    const Node* at(const std::string& key) const;
+    bool operator==(const Node& other) const override;
+    NodePtr deep_copy() const;
     private:
     std::map<std::string, NodePtr> _dictionnary;
 };

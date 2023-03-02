@@ -14,10 +14,10 @@ std::string ArrayNode::print() const {
 }
 
 std::unique_ptr<ArrayNode> ArrayNode::make_ptr() {
-    return std::make_unique<ArrayNode>(ArrayNode { });
+    return std::make_unique<ArrayNode>();
 }
 
-int ArrayNode::child_count() {
+size_t ArrayNode::child_count() const {
     return _array.size();
 }
 
@@ -42,4 +42,34 @@ unsigned int ArrayNode::height() {
         height = std::max(node->height(), height);
     }
     return height + 1;
+}
+
+bool ArrayNode::operator==(const Node& other) const
+{
+    if (other.kind() != kind())
+    {
+        return false;
+    }
+    ArrayNode const* other_s = other.as_ArrayNode();
+    size_t           size    = child_count();
+    if (other_s->child_count() != size)
+    {
+        return false;
+    }
+    for (unsigned i = 0; i < size; i++)
+    {
+        if (!(*(other_s->_array[i]) == *(_array[i])))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+NodePtr ArrayNode::deep_copy() const
+{
+    auto result = make_ptr();
+    for (auto const& elt : _array)
+        result->push_back(elt->deep_copy());
+    return result;
 }

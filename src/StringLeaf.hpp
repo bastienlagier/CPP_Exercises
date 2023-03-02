@@ -9,10 +9,11 @@ class StringLeaf : public Leaf {
         , _value { value }
     {}
     std::string data() const;
-    NodeKind kind() const;
     virtual std::string print() const override;
-    static NodePtr make_ptr(const std::string& value);
-    int child_count();
+    static std::unique_ptr<StringLeaf> make_ptr(const std::string& value);
+    bool operator==(const Node& other) const override;
+    size_t child_count() const override;
+    NodePtr deep_copy() const override { return make_ptr(data()); }
     private:
     const std::string _value;
 };

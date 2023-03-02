@@ -10,8 +10,10 @@ class IntLeaf : public Leaf {
     {}
     int data() const;
     virtual std::string print() const override;
-    static NodePtr make_ptr(int value);
-    int child_count();
+    static std::unique_ptr<IntLeaf> make_ptr(int value);
+    bool operator==(const Node& other) const;
+    size_t child_count() const override;
+    NodePtr deep_copy() const override { return make_ptr(data()); }
     private:
     const int _value;
 };
