@@ -16,6 +16,8 @@ class ArrayNode : public Node {
     int child_count() override;
     unsigned int node_count() override;
     unsigned int height() override;
+    std::vector<NodePtr>::const_iterator begin() const { return _array.begin(); }
+    std::vector<NodePtr>::const_iterator end() const { return _array.end(); }
     private:
     std::vector<NodePtr> _array;
 };

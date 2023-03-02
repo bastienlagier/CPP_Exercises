@@ -23,11 +23,18 @@ int ObjectNode::child_count() {
     return _dictionnary.size();
 }
 
+unsigned int ObjectNode::node_count() {
+    unsigned int count = 1;
+    for (const auto& entry : _dictionnary) {
+        count += entry.second->node_count();
+    }
+    return count;
+}
+
 void ObjectNode::insert(std::string str, NodePtr nodeptr) {
     if (nodeptr != nullptr) {
         unsigned int nodecount = nodeptr->node_count();
         _dictionnary.insert_or_assign(str, std::move(nodeptr));
-        _node_count += nodecount;
     }
 }
 
@@ -46,6 +53,9 @@ bool ObjectNode::has_child(const std::string& key) {
     return _dictionnary.count(key) != 0;
 }
 
-NodePtr ObjectNode::at(const std::string& key) {
-    return _dictionnary.at(key);
+Node* ObjectNode::at(const std::string& key) {
+    if (has_child(key))
+        return _dictionnary.at(key).get();
+    else
+        return nullptr;
 }
