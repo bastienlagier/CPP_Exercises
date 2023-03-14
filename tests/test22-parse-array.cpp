@@ -27,6 +27,7 @@ TEST_CASE("Parsing a complex ArrayNode's from file `array_hexadecimal.json`")
 {
     std::string filename = json_dir + "array_hexadecimal.json";
     NodePtr node = JsonParser::parse_from_file(filename);
+    std::cout << node->print() << std::endl;
     REQUIRE(node->height() == 4u);
     REQUIRE(node->node_count() == 31u);
     REQUIRE(node->kind() == NodeKind::ARRAY);
