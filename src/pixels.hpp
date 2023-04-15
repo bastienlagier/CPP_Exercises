@@ -105,3 +105,16 @@ RGB operator+(const Luma & lhs, const RGB & rhs) {
     return {r, g, b};
 }
 
+RGB operator+(const RGB & lhs, const RGB & rhs) {
+    const auto [r, g, b, a] = lib::mix_color(lhs.r, lhs.g, lhs.b, 255, 
+        rhs.r, rhs.g, rhs.b, 255);
+    return {r, g, b};
+}
+
+
+template<typename A> 
+RGBA operator+(const A & p, const Luma & mask) {
+    RGBA rgba = from<RGBA, A>(p);
+    rgba.a = uint8_t((uint32_t(rgba.a)*uint32_t(mask.gray)/255));
+    return rgba;
+}
