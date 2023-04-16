@@ -39,3 +39,38 @@ const std::optional<Consumable> Kitchen::make_random_consumable(float quantity, 
     Consumable consumable{ ingredient, quantity, expiration };
     return consumable;
 }
+
+const Cupboard& Kitchen::get_cupboard() const {
+    return (*_cupboard);
+}
+
+void Kitchen::store_in_cupboard(Consumable consumable) {
+    (*_cupboard).consumables.push_back(consumable);
+}
+
+void Kitchen::wait_time(unsigned int time) {
+    auto& consumables = (*_cupboard).consumables;
+    std::for_each(consumables.begin(), consumables.end(), 
+        [time](Consumable consumable) { 
+            if (!consumable.expiration_time.has_value()) {
+                return;
+            }
+            std::optional<unsigned int> expiration = 
+                consumable.expiration_time.value() - time;
+            consumable.expiration_time = expiration; });
+}
+
+float Kitchen::compute_quantity(const std::function<bool(const Consumable&)>& consumable_filter) const {
+    auto& consumables = (*_cupboard).consumables;
+    return std::accumulate(consumables.begin(), consumables.end(), 0.f,
+        [&consumable_filter](float r, const Consumable& c) {
+            const auto quantity = consumable_filter(c) ? c.quantity : 0.f;
+            return r + quantity;
+        });
+}
+
+
+float Kitchen::compute_quantity(const Ingredient& ingredient) const {
+    return compute_quantity([&ingredient](const Consumable& c)
+        { return c.expiration_time != 0 && &c.ingredient.get() == &ingredient; });
+}
