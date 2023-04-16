@@ -26,3 +26,16 @@ const Ingredient* Kitchen::find_ingredient(const std::string& name) const {
         [name](Ingredient i) { return to_upper(i.name) == to_upper(name); });
     return it == _ingredients.end() ? nullptr : &((*it).get());
 }
+
+const std::optional<Consumable> Kitchen::make_random_consumable(float quantity, unsigned int expiration) const {
+    if (_ingredients.empty()) {
+        return std::nullopt;
+    }
+    std::random_device r;
+    std::default_random_engine e1(r());
+    std::uniform_int_distribution<size_t> uniform_dist(0u, _ingredients.size()-1u);
+    int id = uniform_dist(e1);
+    auto ingredient = _ingredients.at(id);
+    Consumable consumable{ ingredient, quantity, expiration };
+    return consumable;
+}
